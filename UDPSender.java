@@ -30,7 +30,7 @@ class UDPSender extends MainUI implements Runnable {
             log(msgNumber + " - Sent Message: " + s, "SEND");
         }
         catch (Exception e) {
-            log(e.toString(), "SEND");
+            log(e.toString(), "ERROR");
         }
     }
 }
