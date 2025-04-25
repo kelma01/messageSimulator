@@ -38,4 +38,10 @@ public class UDPReceiver extends MainUI implements Runnable {
             log(e.toString(), "ERROR");
         }
     }
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+    public DatagramSocket getSocket() {
+        return this.socket;
+    }
 }
