@@ -107,7 +107,7 @@ public class MainUI implements Runnable {
         startButton.setOnAction(event -> startConnection());
         loadButton.setOnAction(event -> loadXmlData("config/config.xml"));
 
-        Scene scene = new Scene(root, 1280, 720);,
+        Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("UDP Messaging System");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
