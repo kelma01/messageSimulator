@@ -159,4 +159,28 @@ public class MainUI implements Runnable {
             stopButton.setDisable(true);
         });
     }
+
+    private void loadXMLData(String filePath) {
+        try {
+            File xmlFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+
+            doc.getDocumentElement().normalize();
+
+            NodeList udpClientPortField = doc.getElementsByTagName("udpClientPortField");
+            if(udpClientPortField.getLength() > 0) 
+                this.udpClientPortField.setText(udpClientPortField.item(0).getTextContent());
+            NodeList udpServerPortField = doc.getElementsByTagName("udpServerPortField");
+            if(udpServerPortField.getLength() > 0) 
+                this.udpServerPortField.setText(udpServerPortField.item(0).getTextContent());
+            NodeList udpServerAddressField = doc.getElementsByTagName("udpServerAddressField");
+            if(udpServerAddressField.getLength() > 0) 
+                this.udpServerAddressField.setText(udpServerAddressField.item(0).getTextContent());
+
+        } catch (Exception e) {
+            log(e.toString(), "ERROR");
+        }
+    }
 }
