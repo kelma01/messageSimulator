@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<config>
+    <udpClientPortField>5404</udpClientPortField>
+    <udpServerPortField>2000</udpServerPortField>
+    <udpServerAddressField>127.0.0.1</udpServerAddressField>
+</config>

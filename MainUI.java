@@ -142,6 +142,7 @@ public class MainUI implements Runnable {
             udpReceiverThread.start();
             
             log("UDP Sender started on port " + serverPort, "INFO");
+        }
         catch (Exception e){
             log(e.toString(), "ERROR");
         }
@@ -179,8 +180,26 @@ public class MainUI implements Runnable {
             if(udpServerAddressField.getLength() > 0) 
                 this.udpServerAddressField.setText(udpServerAddressField.item(0).getTextContent());
 
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             log(e.toString(), "ERROR");
+        }
+    }
+
+    void log(String message, String type) {
+        switch (type) {
+            case "ERROR":
+                errorLogArea.appendText(message + "\n");
+                break;
+            case "INFO":
+                logArea.appendText(message + "\n");
+                break;
+            case "SEND":
+                sendLogArea.appendText(message + "\n");
+                break;
+            case "RECEIVE":
+                receiveLogArea.appendText(message + "\n");
+                break;
         }
     }
 }
