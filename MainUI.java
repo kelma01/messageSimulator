@@ -23,7 +23,7 @@ public class MainUI implements Runnable {
     private Button stopButton;
     private Button loadButton;
     private Thread udpReceiverThread;
-    private UDPReceiver udpRecevier;
+    private UDPReceiver udpReceiver;
 
     public static void main(String[] args) {
         launch(args);
@@ -112,5 +112,51 @@ public class MainUI implements Runnable {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    private void startConnection(){
+
+        logArea.setText("");
+        errorLogArea.setText("");
+        sendLogArea.setText("");
+        receiveLogArea.setText("");
+
+        String udpClientPort = udpClientPortField.getText();
+        String udpServerPort = udpServerPortField.getText();
+        String udpServerAddress = udpServerAddressField.getText();
+
+        if (udpClientPort.isEmpty() || udpServerPort.isEmpty() || udpServerAddress.isEmpty()) {
+            log.appendText("Input Boxes cannot be empty!", "ERROR");
+            return;
+        }
+
+        try{
+            int clientPort = Integer.parseInt(udpClientPort);
+            int serverPort = Integer.parseInt(udpServerPort);
+
+            log("UDP Receiver started on port " + clientPort, "INFO");
+
+            udpReceiver = new UDPReceiver(clientPort, serverPort);
+            udpReceiverThread = new Thread(udpReceiver);
+            udpReceiver.setFlag(true);
+            udpReceiverThread.start();
+            
+            log("UDP Sender started on port " + serverPort, "INFO");
+        catch (Exception e){
+            log(e.toString(), "ERROR");
+        }
+
+        startButton.setDisable(true);
+        loadButton.setDisable(true);
+        stopButton.setDisable(false);
+
+        stopButton.setOnAction(event -> {
+            udpReceiver.setFlag(false);
+            udpReceiver.getSocket.close();
+            
+            startButton.setDisable(false);
+            loadButton.setDisable(false);
+            stopButton.setDisable(true);
+        });
     }
 }
